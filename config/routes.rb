@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post 'users/create', to: 'users#create'
-      get 'users/destroy', to: 'users#destroy'
+      delete 'users/destroy', to: 'users#destroy'
     end
   end
 
