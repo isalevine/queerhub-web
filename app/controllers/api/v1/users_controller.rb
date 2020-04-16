@@ -3,10 +3,7 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     puts "hello from create!"
-    user = User.new(user_params)
-    if user.save
-      puts "new user saved!!!"
-    end
+    event = Events::User::Created.create!
   end
 
   def destroy
