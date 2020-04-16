@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
 
   root 'v1/homepage#index'
-  scope :v1 do
-    get 'users/create', to: 'v1/users#create'
-    get 'users/destroy', to: 'v1/users#destroy'
+
+  namespace :api do
+    namespace :v1 do
+      post 'users/create', to: 'users#create'
+      get 'users/destroy', to: 'users#destroy'
+    end
   end
 
 
