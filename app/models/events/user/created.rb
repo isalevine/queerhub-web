@@ -1,5 +1,5 @@
 class Events::User::Created < Events::User::BaseEvent
-  payload_attributes :name, :email, :password, :password_confirmation
+  payload_attributes :name, :email, :password
 
   def apply(user)
     user.name = name

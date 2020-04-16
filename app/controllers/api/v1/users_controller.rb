@@ -2,7 +2,6 @@ class Api::V1::UsersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
   def create
-    puts "hello from create!"
     event = Events::User::Created.create!(user_params)
   end
 
@@ -17,6 +16,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:id, :name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:id, :name, :email, :password)
   end
 end
