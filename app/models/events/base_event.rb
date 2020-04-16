@@ -14,6 +14,28 @@ class Events::BaseEvent < ActiveRecord::Base
 
 
 
+  def self.payload_attributes(*attributes)
+    @payload_attributes ||= []
+
+    attributes.map(&:to_s).each do |attribute|
+      @payload_attributes << attribute unless @payload_attributes.include?(attribute)
+
+      define_method attribute do
+        self.payload ||= {}
+        self.payload[attribute]
+      end
+
+      define_method "#{attribute}=" do |argument|
+        self.payload ||= {}
+        self.payload[attribute] = argument
+      end
+    end
+
+    @payload_attributes
+  end
+
+
+
   def aggregate=(model)
     public_send "#{aggregate_name}=", model
   end
@@ -21,6 +43,14 @@ class Events::BaseEvent < ActiveRecord::Base
   # Return the aggregate that the event will apply to
   def aggregate
     public_send aggregate_name
+  end
+
+  def aggregate_id=(id)
+    public_send "#{aggregate_name}_id=", id
+  end
+
+  def aggregate_id
+    public_send "#{aggregate_name}_id"
   end
 
   private def preset_aggregate
@@ -40,7 +70,7 @@ class Events::BaseEvent < ActiveRecord::Base
 
   delegate :aggregate_name, to: :class
 
-  
+
 
   private def apply_and_persist
     # Lock the database row! (OK because we're in an ActiveRecord callback chain transaction)

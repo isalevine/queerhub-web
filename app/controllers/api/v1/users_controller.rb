@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     puts "hello from create!"
-    event = Events::User::Created.create!
+    event = Events::User::Created.create!(user_params)
   end
 
   def destroy
