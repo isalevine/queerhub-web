@@ -2,15 +2,11 @@ class Api::V1::UsersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
   def create
-    event = Events::User::Created.create!(user_params)
+    Events::User::Created.create!(user_params)
   end
 
   def destroy
-    puts "hello from destroy!"
-    user = User.find(user_params[:id])
-    if user.destroy
-      puts "user id #{user_params[:id]} deleted!!!"
-    end
+    Events::User::Destroyed.create!(user_id: user_params[:id])
   end
 
   private

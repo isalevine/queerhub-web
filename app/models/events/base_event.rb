@@ -1,7 +1,7 @@
 class Events::BaseEvent < ActiveRecord::Base
   # https://github.com/pcreux/event-sourcing-rails-todo-app-demo/blob/master/app/models/lib/base_event.rb
 
-  before_validation :preset_aggregate
+  before_validation :find_or_build_aggregate
   before_create :apply_and_persist
 
   self.abstract_class = true
@@ -53,9 +53,16 @@ class Events::BaseEvent < ActiveRecord::Base
     public_send "#{aggregate_name}_id"
   end
 
-  private def preset_aggregate
+  private def find_or_build_aggregate
+    self.aggregate = find_aggregate
+    byebug
     # Build aggregate when the event is creating an aggregate
-    self.aggregate ||= build_aggregate
+    self.aggregate = build_aggregate if self.aggregate.nil?
+  end
+
+  def find_aggregate
+    klass = aggregate_name.to_s.classify.constantize
+    klass.find(aggregate_id)
   end
 
   def build_aggregate
@@ -76,9 +83,11 @@ class Events::BaseEvent < ActiveRecord::Base
     # Lock the database row! (OK because we're in an ActiveRecord callback chain transaction)
     aggregate.lock! if aggregate.persisted?
 
+    byebug
     # Apply!
     self.aggregate = apply(aggregate)
 
+    byebug
     #Persist!
     aggregate.save!
     self.aggregate_id = aggregate.id if aggregate_id.nil?
