@@ -34,6 +34,11 @@
 
 module Mixins
   module Command
+    extend ActiveSupport::Concern
+
+    included do
+      include ActiveModel::Validations
+    end
 
     class_methods do
       # Run validations and persist the event.

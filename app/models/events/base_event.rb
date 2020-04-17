@@ -1,24 +1,10 @@
 class Events::BaseEvent < ActiveRecord::Base
   # https://github.com/pcreux/event-sourcing-rails-todo-app-demo/blob/master/app/models/lib/base_event.rb
-  attr_accessor :payload, :event_type
 
   before_validation :find_or_build_aggregate
   before_create :apply_and_persist
-  after_create :dispatch
 
   self.abstract_class = true
-
-
-  after_initialize do
-    @event_type = event_type
-    @payload = payload
-    @payload["password"] = BCrypt::Password.create(payload["password"]) if payload["password"].present?
-    byebug
-  end
-
-  def dispatch
-    byebug
-  end
 
 
 
@@ -29,6 +15,7 @@ class Events::BaseEvent < ActiveRecord::Base
 
 
   def self.payload_attributes(*attributes)
+    byebug
     @payload_attributes ||= []
 
     attributes.map(&:to_s).each do |attribute|
