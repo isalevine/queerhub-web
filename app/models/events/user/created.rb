@@ -4,7 +4,9 @@ class Events::User::Created < Events::User::BaseEvent
   def apply(user)
     user.name = name
     user.email = email
-    user.password = BCrypt::Password.create(password)
+    user.password = password
+
+    byebug
 
     user
   end

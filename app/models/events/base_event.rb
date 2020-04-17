@@ -1,10 +1,24 @@
 class Events::BaseEvent < ActiveRecord::Base
   # https://github.com/pcreux/event-sourcing-rails-todo-app-demo/blob/master/app/models/lib/base_event.rb
+  attr_accessor :payload, :event_type
 
   before_validation :find_or_build_aggregate
   before_create :apply_and_persist
+  after_create :dispatch
 
   self.abstract_class = true
+
+
+  after_initialize do
+    @event_type = event_type
+    @payload = payload
+    @payload["password"] = BCrypt::Password.create(payload["password"]) if payload["password"].present?
+    byebug
+  end
+
+  def dispatch
+    byebug
+  end
 
 
 
@@ -54,9 +68,7 @@ class Events::BaseEvent < ActiveRecord::Base
   end
 
   private def find_or_build_aggregate
-    self.aggregate = find_aggregate
-    byebug
-    # Build aggregate when the event is creating an aggregate
+    self.aggregate = find_aggregate if aggregate_id.present?
     self.aggregate = build_aggregate if self.aggregate.nil?
   end
 
@@ -83,14 +95,19 @@ class Events::BaseEvent < ActiveRecord::Base
     # Lock the database row! (OK because we're in an ActiveRecord callback chain transaction)
     aggregate.lock! if aggregate.persisted?
 
-    byebug
     # Apply!
     self.aggregate = apply(aggregate)
 
-    byebug
     #Persist!
+    byebug
     aggregate.save!
     self.aggregate_id = aggregate.id if aggregate_id.nil?
+  end
+
+
+
+  def event_type
+    self.class.to_s.split("::").last
   end
 
 end
