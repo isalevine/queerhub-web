@@ -14,6 +14,11 @@ class Events::BaseEvent < ActiveRecord::Base
 
 
 
+  after_initialize do
+    self.event_type = event_type
+    self.payload ||= {}
+  end
+
   def self.payload_attributes(*attributes)
     @payload_attributes ||= []
 
@@ -33,8 +38,6 @@ class Events::BaseEvent < ActiveRecord::Base
 
     @payload_attributes
   end
-
-
 
   private def find_or_build_aggregate
     self.aggregate = find_aggregate if aggregate_id.present?
@@ -88,5 +91,10 @@ class Events::BaseEvent < ActiveRecord::Base
   end
 
   delegate :aggregate_name, to: :class
+
+  def event_type
+    byebug
+    self.class.to_s.split("::").last
+  end
 
 end

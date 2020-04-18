@@ -10,7 +10,6 @@ module Commands
     private def build_event
       Events::User::Destroyed.new(
         user_id: payload[:id],
-        event_type: "Destroyed",
         payload: payload
       )
     end
