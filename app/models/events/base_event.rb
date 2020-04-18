@@ -93,7 +93,13 @@ class Events::BaseEvent < ActiveRecord::Base
   delegate :aggregate_name, to: :class
 
   def event_type
-    self.class.to_s.split("::").last
+    self.attributes["event_type"] || self.class.to_s.split("::").last
+  end
+
+  def event_klass
+    klass = self.class.to_s.split("::")
+    klass[-1] = event_type
+    klass.join('::').constantize
   end
 
 end
