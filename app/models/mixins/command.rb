@@ -44,7 +44,7 @@ module Mixins
       # Run validations and persist the event.
       #
       # On success: returns the event
-      # On noop: returns nil
+      # On noop: returns nil => TODO: implement noop
       # On failure: raise an ActiveRecord::RecordInvalid error
       def call(*args)
         new(*args).call
@@ -54,7 +54,7 @@ module Mixins
       # They are set when initializing the command as keyword arguments and
       # are all accessible as getter methods.
       #
-      # ex: `attributes :post, :user, :ability`
+      # ex: `attributes :user_id, :payload`
       def attributes(*args)
         attr_reader(*args)
 
