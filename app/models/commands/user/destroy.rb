@@ -15,8 +15,5 @@ module Commands
       )
     end
 
-    def noop?
-
-    end
   end
 end
