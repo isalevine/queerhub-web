@@ -93,7 +93,6 @@ class Events::BaseEvent < ActiveRecord::Base
   delegate :aggregate_name, to: :class
 
   def event_type
-    byebug
     self.class.to_s.split("::").last
   end
 
