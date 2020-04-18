@@ -15,7 +15,6 @@ class Events::BaseEvent < ActiveRecord::Base
 
 
   def self.payload_attributes(*attributes)
-    byebug
     @payload_attributes ||= []
 
     attributes.map(&:to_s).each do |attribute|
@@ -86,7 +85,6 @@ class Events::BaseEvent < ActiveRecord::Base
     self.aggregate = apply(aggregate)
 
     #Persist!
-    byebug
     aggregate.save!
     self.aggregate_id = aggregate.id if aggregate_id.nil?
   end

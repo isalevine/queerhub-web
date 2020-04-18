@@ -6,8 +6,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    # TODO: Replace with Commands::User::Delete.call(payload: user_params)
-    Events::User::Destroyed.create!(user_id: user_params[:id])
+    Commands::User::Destroy.call(payload: user_params)
   end
 
   private
