@@ -8,6 +8,7 @@ module Commands
     attributes :payload
 
     private def build_event
+      byebug
       encrypt_payload_password
       Events::User::Created.new(
         event_type: "Created",

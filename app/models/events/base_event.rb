@@ -36,6 +36,34 @@ class Events::BaseEvent < ActiveRecord::Base
 
 
 
+  private def find_or_build_aggregate
+    self.aggregate = find_aggregate if aggregate_id.present?
+    self.aggregate = build_aggregate if self.aggregate.nil?
+  end
+
+  def find_aggregate
+    klass = aggregate_name.to_s.classify.constantize
+    klass.find(aggregate_id)
+  end
+
+  def build_aggregate
+    public_send "build_#{aggregate_name}"
+  end
+
+  private def apply_and_persist
+    # Lock the database row! (OK because we're in an ActiveRecord callback chain transaction)
+    aggregate.lock! if aggregate.persisted?
+
+    # Apply!
+    self.aggregate = apply(aggregate)
+
+    #Persist!
+    aggregate.save!
+    self.aggregate_id = aggregate.id if aggregate_id.nil?
+  end
+
+
+
   def aggregate=(model)
     public_send "#{aggregate_name}=", model
   end
@@ -53,20 +81,6 @@ class Events::BaseEvent < ActiveRecord::Base
     public_send "#{aggregate_name}_id"
   end
 
-  private def find_or_build_aggregate
-    self.aggregate = find_aggregate if aggregate_id.present?
-    self.aggregate = build_aggregate if self.aggregate.nil?
-  end
-
-  def find_aggregate
-    klass = aggregate_name.to_s.classify.constantize
-    klass.find(aggregate_id)
-  end
-
-  def build_aggregate
-    public_send "build_#{aggregate_name}"
-  end
-
   def self.aggregate_name
     inferred_aggregate = reflect_on_all_associations(:belongs_to).first
     raise "Events must belong to an aggregate" if inferred_aggregate.nil?
@@ -74,25 +88,5 @@ class Events::BaseEvent < ActiveRecord::Base
   end
 
   delegate :aggregate_name, to: :class
-
-
-
-  private def apply_and_persist
-    # Lock the database row! (OK because we're in an ActiveRecord callback chain transaction)
-    aggregate.lock! if aggregate.persisted?
-
-    # Apply!
-    self.aggregate = apply(aggregate)
-
-    #Persist!
-    aggregate.save!
-    self.aggregate_id = aggregate.id if aggregate_id.nil?
-  end
-
-
-
-  def event_type
-    self.class.to_s.split("::").last
-  end
 
 end

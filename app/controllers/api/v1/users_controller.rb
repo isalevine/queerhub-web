@@ -9,9 +9,7 @@ class Api::V1::UsersController < ApplicationController
     Commands::User::Destroy.call(payload: user_params)
   end
 
-  private
-
-  def user_params
+  private def user_params
     params.require(:user).permit(:id, :name, :email, :password)
   end
 end
