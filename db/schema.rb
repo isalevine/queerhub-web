@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_071621) do
+ActiveRecord::Schema.define(version: 2020_04_17_051001) do
 
   create_table "blog_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "image_url"
@@ -61,6 +61,15 @@ ActiveRecord::Schema.define(version: 2020_04_14_071621) do
     t.index ["user_id"], name: "index_user_accounts_on_user_id"
   end
 
+  create_table "user_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "event_type"
+    t.json "payload"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_events_on_user_id"
+  end
+
   create_table "user_roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "role_id", null: false
@@ -76,6 +85,7 @@ ActiveRecord::Schema.define(version: 2020_04_14_071621) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "deleted", default: false, null: false
   end
 
   add_foreign_key "blog_images", "blog_posts"
@@ -83,6 +93,7 @@ ActiveRecord::Schema.define(version: 2020_04_14_071621) do
   add_foreign_key "user_account_blogs", "blogs"
   add_foreign_key "user_account_blogs", "user_accounts"
   add_foreign_key "user_accounts", "users"
+  add_foreign_key "user_events", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
 end
