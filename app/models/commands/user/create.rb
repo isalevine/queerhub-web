@@ -6,6 +6,7 @@ module Commands
     include Mixins::Command
 
     attributes :payload
+    # TODO: add => validate :validate_name, :validate_email
 
     private def build_event
       encrypt_payload_password

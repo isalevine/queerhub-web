@@ -44,7 +44,7 @@ module Mixins
       # Run validations and persist the event.
       #
       # On success: returns the event
-      # On noop: returns nil => TODO: implement noop
+      # On noop: returns nil
       # On failure: raise an ActiveRecord::RecordInvalid error
       def call(*args)
         new(*args).call
@@ -96,6 +96,12 @@ module Mixins
     # Returns a new event record, or nil if noop
     private def build_event
       raise NotImplementedError
+    end
+
+    private def valid_payload_values?
+      payload.each do |key, value|
+        self.send "validate_#{key}", value if self.respond_to?("validate_#{key}")
+      end
     end
 
     # Hook to set default values

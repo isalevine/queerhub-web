@@ -6,7 +6,7 @@ module Commands
     include Mixins::Command
 
     attributes :payload
-    validate :valid_payload_values?
+    validate :validate_id
 
 
     private
@@ -18,14 +18,8 @@ module Commands
       )
     end
 
-    def valid_payload_values?
-      payload.each do |key, value|
-        self.send "validate_#{key}", value
-      end
-    end
-
-    def validate_id(id)
-      user = ::User.find_by(id: id)
+    def validate_id
+      user = ::User.find_by(id: payload[:id])
       self.errors.add "id", 'User not found' if user.nil?
       self.errors.add "id", 'User is already deleted' if user&.deleted?
     end
