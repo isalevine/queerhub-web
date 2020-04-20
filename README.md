@@ -1,24 +1,13 @@
-# README
+# QueerHub
+QueerHub is a blogging platform centering queer and trans content!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Setup
+1. Clone repo.
+1. In `queerhub-web` directory, run `rails s` to start Rails server.
 
-Things you may want to cover:
+# Features
+## Event Sourcing
+* Changes to state and data are recorded in immutable event objects
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Acknowledgments
+Special thanks to Kickstarter and Philippe Creux for [their amazing Event Sourcing tutorial!](https://kickstarter.engineering/event-sourcing-made-simple-4a2625113224)
