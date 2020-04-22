@@ -18,8 +18,6 @@ module Commands
       )
     end
 
-    # Should these validations be moved to the Event layer?
-    # (as part of returning nil from a noop .call)
     def validate_id
       user = ::User.find_by(id: payload[:id])
       self.errors.add "id", 'User not found' if user.nil?
