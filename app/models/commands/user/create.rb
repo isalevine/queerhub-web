@@ -25,11 +25,12 @@ module Commands
     end
 
     def validate_name
-
+      self.errors.add "name", "A User with that name already exists" if ::User.where(name: payload[:name]).exists?
     end
 
     def validate_email
-
+      self.errors.add "email", "Not a valid email address" unless EmailValidator.call(payload[:email])
+      self.errors.add "email", "A User with that email already exists" if ::User.where(email: payload[:email]).exists?
     end
 
   end

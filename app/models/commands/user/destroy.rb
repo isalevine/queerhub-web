@@ -19,9 +19,9 @@ module Commands
     end
 
     def validate_id
-      user = ::User.find_by(id: payload[:id])
-      self.errors.add "id", 'User not found' if user.nil?
-      self.errors.add "id", 'User is already deleted' if user&.deleted?
+      user = ::User.where(id: payload[:id])
+      self.errors.add "id", "User not found" unless user.exists?
+      self.errors.add "id", "User is already deleted" if user.pluck(:deleted).first
     end
 
   end
