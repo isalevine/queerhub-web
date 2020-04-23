@@ -3,6 +3,7 @@ class Events::BaseEvent < ActiveRecord::Base
 
   before_validation :find_or_build_aggregate
   before_create :apply_and_persist
+  after_create :dispatch
 
   self.abstract_class = true
 
@@ -101,6 +102,11 @@ class Events::BaseEvent < ActiveRecord::Base
     klass = self.class.to_s.split("::")
     klass[-1] = event_type
     klass.join('::').constantize
+  end
+
+
+  private def dispatch
+    EventDispatcherWorker.perform_async(event_id: self.id, event_type: self.class.to_s)
   end
 
 end
