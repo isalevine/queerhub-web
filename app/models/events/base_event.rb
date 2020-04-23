@@ -19,6 +19,7 @@ class Events::BaseEvent < ActiveRecord::Base
     self.payload ||= {}
   end
 
+  # TODO: Consider changing all `@` instances below to `self.`?
   def self.payload_attributes(*attributes)
     @payload_attributes ||= []
 
