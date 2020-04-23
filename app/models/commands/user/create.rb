@@ -9,7 +9,6 @@ module Commands
     # DISABLED FOR DEVELOPMENT
     # validate :validate_name, :validate_email
 
-
     private 
     
     def build_event

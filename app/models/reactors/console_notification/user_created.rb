@@ -2,12 +2,14 @@ class Reactors::ConsoleNotification::UserCreated < Reactors::ConsoleNotification
   def call
     puts <<~STR
 
+
       ===========================================
       User id #{self.event.user_id} created! 
-      name: #{self.event.payload.name}
-      email: #{self.event.payload.email}
+      name: #{self.event.payload["name"]}
+      email: #{self.event.payload["email"]}
       ===========================================
 
+      
     STR
   end
 

@@ -7,13 +7,9 @@ class Events::BaseEvent < ActiveRecord::Base
 
   self.abstract_class = true
 
-
-
   def apply(aggregate)
     raise NotImplementedError
   end
-
-
 
   after_initialize do
     self.event_type = event_type
@@ -67,8 +63,6 @@ class Events::BaseEvent < ActiveRecord::Base
     self.aggregate_id = aggregate.id if aggregate_id.nil?
   end
 
-
-
   def aggregate=(model)
     public_send "#{aggregate_name}=", model
   end
@@ -104,9 +98,8 @@ class Events::BaseEvent < ActiveRecord::Base
     klass.join('::').constantize
   end
 
-
   private def dispatch
-    EventDispatcherWorker.perform_async(event_id: self.id, event_type: self.class.to_s)
+    EventDispatcherWorker.perform_async(self.id, self.class.to_s)
   end
 
 end
