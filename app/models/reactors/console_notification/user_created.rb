@@ -10,4 +10,8 @@ class Reactors::ConsoleNotification::UserCreated < Reactors::ConsoleNotification
 
     STR
   end
+
+  def self.target_event_type
+    Events::User::Created
+  end
 end

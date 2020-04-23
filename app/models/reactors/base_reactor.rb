@@ -7,7 +7,7 @@ class Reactors::BaseReactor
     raise NotImplementedError
   end
 
-  def target_event_type
-    self.event.event_type
+  def self.target_event_type
+    raise NotImplementedError
   end
 end
