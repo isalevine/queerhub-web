@@ -1,0 +1,3 @@
+class Reactors::BaseReactor
+  
+end
