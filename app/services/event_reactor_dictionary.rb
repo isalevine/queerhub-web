@@ -1,7 +1,7 @@
 # TODO: Consider moving this class to lib?
 class EventReactorDictionary
 
-  attr_accessor :reactors
+  attr_accessor :dictionary
 
   # per this article, functionally a Singleton (https://stackoverflow.com/a/10733789)
   def self.instance
@@ -16,9 +16,9 @@ class EventReactorDictionary
     dictionary = {}
     reactors = load_reactors
     reactors.each do |reactor|
-      reactor_name = reactor.to_s
-      dictionary[reactor_name] = [] if dictionary[reactor_name].nil?
-      dictionary[reactor_name] << reactor.target_event_type unless dictionary[reactor_name].include?(reactor.target_event_type)
+      event_type = reactor.target_event_type.to_s
+      dictionary[event_type] = [] if dictionary[event_type].nil?
+      dictionary[event_type] << reactor unless dictionary[event_type].include?(reactor.class)
     end
     dictionary
   end
@@ -39,8 +39,7 @@ class EventReactorDictionary
   end
   
   def call(event_type)
-    self.reactors[event_type]
-    # return array of Reactor classes to call with .each
+    self.dictionary[event_type]
   end
 
 end
