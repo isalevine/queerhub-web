@@ -28,11 +28,21 @@ RSpec.describe Commands::User::Create, type: :model do
       end
     end
     describe "user_params email is not unique" do
-      it "does not create a User" do
+      # TODO: should 2 tests below be combined, since both have same `expect.to raise_error` statement?
+      it "raises an error" do
         user_params = {name: "ongo_gablogian", email: "ongo@gablogian.com", password: "danny_devito"}
         Commands::User::Create.call(payload: user_params)
         user_params[:name] = "new_name"
         expect { Commands::User::Create.call(payload: user_params) }.to raise_error(ActiveModel::ValidationError)
+      end
+      it "does not create a User" do
+        user_params = {name: "ongo_gablogian", email: "ongo@gablogian.com", password: "danny_devito"}
+        Commands::User::Create.call(payload: user_params)
+        user_count_before = User.count
+        user_params[:name] = "new_name"
+        expect { Commands::User::Create.call(payload: user_params) }.to raise_error(ActiveModel::ValidationError)
+        user_count_after = User.count
+        expect(user_count_before).to eq(user_count_after)
       end
     end
   end
