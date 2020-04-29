@@ -6,8 +6,7 @@ module Commands
     include Mixins::Command
 
     attributes :payload
-    # DISABLED FOR DEVELOPMENT
-    # validate :validate_name, :validate_email
+    validate :validate_name, :validate_email
 
     private 
     
