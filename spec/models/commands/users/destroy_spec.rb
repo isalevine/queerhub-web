@@ -26,9 +26,18 @@ RSpec.describe Commands::User::Destroy, type: :model do
         expect { Commands::User::Destroy.call(payload: user_params) }.to raise_error(ActiveModel::ValidationError)
       end
     end
-    describe "user_params are invalid" do
+    # TODO: how granular should unit tests get with testing types and nil?
+    # i.e. should the string/non-integer and nil tests below be combined?
+    describe "id is not an integer" do
       it "raises an error" do
-        # test for non-integer values, raise ActiveModel::ValidationError
+        user_params = {id: "not an integer"}
+        expect { Commands::User::Destroy.call(payload: user_params) }.to raise_error(ActiveModel::ValidationError)
+      end
+    end
+    describe "id is nil" do
+      it "raises an error" do
+        user_params = {id: nil}
+        expect { Commands::User::Destroy.call(payload: user_params) }.to raise_error(ActiveModel::ValidationError)
       end
     end
   end
