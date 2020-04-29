@@ -8,7 +8,6 @@ module Commands
     attributes :payload
     validate :validate_name, :validate_email
 
-
     private 
     
     def build_event

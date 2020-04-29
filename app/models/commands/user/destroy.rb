@@ -8,7 +8,6 @@ module Commands
     attributes :payload
     validate :validate_id
 
-
     private
 
     def build_event
@@ -23,6 +22,5 @@ module Commands
       self.errors.add "id", "User not found" unless user.exists?
       self.errors.add "id", "User is already deleted" if user.pluck(:deleted).first
     end
-
   end
 end
