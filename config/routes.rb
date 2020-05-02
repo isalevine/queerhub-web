@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:create, :destroy]
+      post 'users/create', to: 'users#create'
+      delete 'users/destroy', to: 'users#destroy'
     end
   end
 
