@@ -67,7 +67,7 @@ class Events::BaseEvent < ActiveRecord::Base
     public_send "#{aggregate_name}=", model
   end
 
-  # Return the aggregate that the event will apply to
+  # Return the aggregate record that the event will apply to
   def aggregate
     public_send aggregate_name
   end
@@ -86,6 +86,7 @@ class Events::BaseEvent < ActiveRecord::Base
     inferred_aggregate.name
   end
 
+  # returns Symbol of aggregate's class name
   delegate :aggregate_name, to: :class
 
   def event_type
