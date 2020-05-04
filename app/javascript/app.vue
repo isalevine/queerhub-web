@@ -1,11 +1,17 @@
 <template>
   <div id="app">
     <p>{{ message }}</p>
+    <queer-container />
   </div>
 </template>
 
 <script>
+import QueerContainer from './components/queer-container'
+
 export default {
+  components: {
+    QueerContainer
+  },
   data: function () {
     return {
       message: "Hello Vue!"
