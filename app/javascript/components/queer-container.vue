@@ -1,5 +1,7 @@
 <template>
-  <p>{{ text }}</p>
+  <div class="bg-pink-200 text-blue-200 shadow-lg rounded-lg">
+    {{ text }}
+  </div>
 </template>
 
 <script>
