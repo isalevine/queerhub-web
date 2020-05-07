@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-pink-light text-blue-med shadow-lg rounded-lg">
+  <div class="border-1 border-pink-light text-blue-med shadow-lg rounded-lg">
     {{ text }}
   </div>
 </template>

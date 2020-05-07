@@ -7,6 +7,9 @@ module.exports = {
       blue: {
         med: '#63b3ed'
       }
+    },
+    borderWidth: {
+      '1': '4px'
     }
   }
 }
