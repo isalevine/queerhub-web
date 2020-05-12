@@ -27,7 +27,7 @@ All data changes are wrapped in a `Command` class, which validates data and crea
 Each `Event` is then dispatched to a Sidekiq queue, which passes the event to any `Reactor` class listening for its target `event_type`.
 
 Some links to code examples:
-* `EventReactorDictionary` Singleton that [loads all classes in the `Reactor` namespace](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/services/event_reactor_dictionary.rb#L28), and builds a hash using those classes as keys pointing to `Events` which they react to. 
+* `EventReactorDictionary` Singleton that [loads all classes in the `Reactor` namespace](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/services/event_reactor_dictionary.rb#L28), and builds a hash using those classes as keys pointing to `Events` which they react to. This is the core of the publish-subscribe system!
   * This is what the main Sidekiq worker uses [to dispatch queued Events to their Reactors](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/workers/event_dispatcher_worker.rb#L9): 
   * [Link to EventReactorDictionary class file](https://github.com/isalevine/queerhub-web/blob/master/app/services/event_reactor_dictionary.rb)
 * Encrypting sensitive params such as passwords with BCrypt [happens manually within the `Command` class, as part of its data validation](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/models/commands/user/create.rb#L22). 
