@@ -33,9 +33,9 @@ Some links to code examples:
 * Encrypting sensitive params such as passwords with BCrypt [happens manually within the `Command` class, as part of its data validation](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/models/commands/user/create.rb#L22). 
   * Salted passwords must be generated earlier than using `has_secure_password` does, as the password data is stored in an `Event` record as well as a `User` record, and the salted passwords _must be the same_ in both records.
 * Examples of **separation of concerns**:
-  * [`Events` are only concerned with applying changes to a particular model's instance](https://github.com/isalevine/queerhub-web/blob/master/app/models/events/user/created.rb)
-  * [`Commands` are only concerned about validating data, and creating a new Event with it](https://github.com/isalevine/queerhub-web/blob/master/app/models/commands/user/create.rb#L26)
-  * [`Reactors` only have to know which Event classes they are listening for](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/models/reactors/console_notification/user_created.rb#L16), and dispatching is [handled by a Sidekiq worker](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/workers/event_dispatcher_worker.rb#L9) along with [the EventReactorDictionary Singleton](https://github.com/isalevine/queerhub-web/blob/master/app/services/event_reactor_dictionary.rb)
+  * `Events` are only concerned with [applying changes to a particular model's instance](https://github.com/isalevine/queerhub-web/blob/master/app/models/events/user/created.rb)
+  * `Commands` are only concerned about [validating data, and creating a new Event with it](https://github.com/isalevine/queerhub-web/blob/master/app/models/commands/user/create.rb#L26)
+  * `Reactors` only have to know [which Event classes they are listening for](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/models/reactors/console_notification/user_created.rb#L16), and dispatching is [handled by a Sidekiq worker](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/workers/event_dispatcher_worker.rb#L9) along with [the EventReactorDictionary Singleton](https://github.com/isalevine/queerhub-web/blob/master/app/services/event_reactor_dictionary.rb)
 
 
 ### 2. I implemented test coverage for the Event Sourcing system with RSpec and DatabaseCleaner!
