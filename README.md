@@ -49,6 +49,7 @@ RSpec needs a tool like DatabaseCleaner [to ensure that a clean database is used
 * [Tests for `Commands::USer::Destroy`](https://github.com/isalevine/queerhub-web/blob/master/spec/models/commands/users/destroy_spec.rb)
 
 ### This project is the basis for [my step-by-step tutorial blog for creating an Event Sourcing system from scratch in Rails!](https://dev.to/isalevine/building-an-event-sourcing-pattern-in-rails-from-scratch-355h)
+The first blog in my series [is an introduction to what Event Sourcing is](https://dev.to/isalevine/building-an-event-sourcing-system-in-rails-part-1-what-is-event-sourcing-46db)--check it out too!
 
 ### I have started building Vue components and TailwindCSS themes for the frontend design!
 This work is still in the early stages, but a reuseable Vue component is now configured to use custom-defined TailwindCSS styling.
