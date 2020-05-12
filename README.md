@@ -21,7 +21,7 @@ In particular, my goal is to implement the following from scratch:
 
 ## Highlights
 
-### I built an [Event Sourcing system](https://dev.to/isalevine/building-an-event-sourcing-system-in-rails-part-1-what-is-event-sourcing-46db) to track all changes to data, and serve as a publish-subscribe system!
+### 1. I built an [Event Sourcing system](https://dev.to/isalevine/building-an-event-sourcing-system-in-rails-part-1-what-is-event-sourcing-46db) to track all changes to data, and serve as a publish-subscribe system!
 All data changes are wrapped in a `Command` class, which validates data and creates an `Event`. 
 
 Each `Event` is then dispatched to a Sidekiq queue, which passes the event to any `Reactor` class listening for its target `event_type`.
@@ -38,7 +38,7 @@ Some links to code examples:
   * [`Reactors` only have to know which Event classes they are listening for](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/models/reactors/console_notification/user_created.rb#L16), and dispatching is [handled by a Sidekiq worker](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/workers/event_dispatcher_worker.rb#L9) along with [the EventReactorDictionary Singleton](https://github.com/isalevine/queerhub-web/blob/master/app/services/event_reactor_dictionary.rb)
 
 
-### I implemented test coverage for the Event Sourcing system with RSpec and DatabaseCleaner!
+### 2. I implemented test coverage for the Event Sourcing system with RSpec and DatabaseCleaner!
 Because wrapping data changes in `Events` and `Commands` takes them outside the normal callback chain for ActiveRecord methods, actions like creating a new User via `Commands::User::Create` is not automatically rolled back by RSpec. 
 
 This leaves leftover data in the testing database, which interferes with processes such as validations for unique usernames.
@@ -48,10 +48,9 @@ RSpec needs a tool like DatabaseCleaner [to ensure that a clean database is used
 * [Tests for `Commands::User::Create`](https://github.com/isalevine/queerhub-web/blob/master/spec/models/commands/users/create_spec.rb)
 * [Tests for `Commands::USer::Destroy`](https://github.com/isalevine/queerhub-web/blob/master/spec/models/commands/users/destroy_spec.rb)
 
-### This project is the basis for [my step-by-step tutorial blog for creating an Event Sourcing system from scratch in Rails!](https://dev.to/isalevine/building-an-event-sourcing-pattern-in-rails-from-scratch-355h)
-The first blog in my series [is an introduction to what Event Sourcing is](https://dev.to/isalevine/building-an-event-sourcing-system-in-rails-part-1-what-is-event-sourcing-46db)--check it out too!
+### 3. This project is the basis for [my step-by-step tutorial blog for creating an Event Sourcing system from scratch in Rails!](https://dev.to/isalevine/building-an-event-sourcing-pattern-in-rails-from-scratch-355h)
 
-### I have started building Vue components and TailwindCSS themes for the frontend design!
+### 4. I have started building Vue components and TailwindCSS themes for the frontend design!
 This work is still in the early stages, but a reuseable Vue component is now configured to use custom-defined TailwindCSS styling.
 
 * The app itself [now boots a Vue instance on its index page](https://github.com/isalevine/queerhub-web/blob/master/app/views/v1/homepage/index.html.erb) to test Vue components and TailwindCSS styling
