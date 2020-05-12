@@ -4,16 +4,18 @@ QueerHub is a blogging platform centering queer and trans content!
 
 ## Why am I creating this?
 I have two main motivations for building QueerHub:
-1. **Queer people are routinely targeted for harassment and violence online, and very few online spaces take steps to solve the problem systemically.** I wanted this to be queer-focused from its very inception, and have several planned features toward that goal:
-  * Optional text filtering that will automatically scan, filter, and report all identifiable hate-speech.
-  * Optional disabling of comment sections for any type of post.
-  * Invite-only account model that encourages queer and trans folks to share this as a resource amongst each other.
+### 1. Queer people are routinely targeted for harassment and violence online, and very few online spaces take steps to solve the problem systemically.
+I wanted this to be queer-focused from its very inception, and have several planned features toward that goal:
+* Optional text filtering that will automatically scan, filter, and report all identifiable hate-speech.
+* Optional disabling of comment sections for any type of post.
+* Invite-only account model that encourages queer and trans folks to share this as a resource amongst each other.
 
-2. [**After being laid off from my previous engineering job due to COVID-19**](https://www.linkedin.com/posts/isa-levine-92681334_isa-levine-resume-activity-6649337086480654337-3Dcz), I wanted to practice all the techniques and tools I learned from my time there! In particular, my goal is to implement the following from scratch:
-  * An expandable Event Sourcing system that captures all changes to data in an immutable log
-  * Using a Sidekiq queue with the Event Sourcing system as the dispatcher for a publish-subscribe pattern
-  * A frontend design system using reusable Vue components in a container-component pattern, and TailwindCSS for styling
-  * Planning and tracking my work with [a QueerHub Jira board](https://queerhub.atlassian.net/jira/software/projects/QW/boards/1), and [pull requests that reference specific tickets](https://github.com/isalevine/queerhub-web/pulls?q=is%3Apr+is%3Aclosed)
+### 2. [**After being laid off from my previous engineering job due to COVID-19**](https://www.linkedin.com/posts/isa-levine-92681334_isa-levine-resume-activity-6649337086480654337-3Dcz), I wanted to practice all the techniques and tools I learned from my time there! 
+In particular, my goal is to implement the following from scratch:
+* An expandable Event Sourcing system that captures all changes to data in an immutable log
+* Using a Sidekiq queue with the Event Sourcing system as the dispatcher for a publish-subscribe pattern
+* A frontend design system using reusable Vue components in a container-component pattern, and TailwindCSS for styling
+* Planning and tracking my work with [a QueerHub Jira board](https://queerhub.atlassian.net/jira/software/projects/QW/boards/1), and [pull requests that reference specific tickets](https://github.com/isalevine/queerhub-web/pulls?q=is%3Apr+is%3Aclosed)
 
 
 ## Highlights
