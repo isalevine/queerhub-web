@@ -61,8 +61,17 @@ This work is still in the early stages, but a reuseable Vue component is now con
 
 
 # Setup
+## Requirements
+* Rails 6.0.2 or higher
+* MySQL 8.0.17 or higher
+* Redis server 5.0.6 or higher
+* Sidekiq 6.0.7 or higher
+
+## Steps to set up locally
 1. Clone repo.
-1. In `queerhub-web` directory, run `rails s` to start Rails server.
+1. In `queerhub-web` directory, run `bundle install` to install dependencies.
+1. Run `rails db:create` then `rails db:migrate` to create databases.
+1. Run `rails s` to start Rails server.
 1. Navigate to `localhost:3000` to see Vue app and TailwindCSS styling. **Note that the frontend is very much a WIP!**
 1. To test out Event Sourcing functionality, check out the steps in the **"Let’s test our event with Insomnia and Postico!"** section of [my tutorial blog covering how to build and test this system](https://dev.to/isalevine/building-an-event-sourcing-pattern-in-rails-from-scratch-355h)!
 
