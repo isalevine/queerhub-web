@@ -56,12 +56,15 @@ I have two main motivations for building QueerHub:
 # Setup
 1. Clone repo.
 1. In `queerhub-web` directory, run `rails s` to start Rails server.
-
-
-# Features
-## Event Sourcing
-* Changes to state and data are recorded in immutable event objects
+1. Navigate to `localhost:3000` to see Vue app and TailwindCSS styling. **Note that the frontend is very much a WIP!**
+1. To test out Event Sourcing functionality, check out the steps in the **"Let’s test our event with Insomnia and Postico!"** section of [my tutorial blog covering how to build and test this system](https://dev.to/isalevine/building-an-event-sourcing-pattern-in-rails-from-scratch-355h)!
 
 
 # Acknowledgments
-Special thanks to Kickstarter and Philippe Creux for [their amazing Event Sourcing tutorial!](https://kickstarter.engineering/event-sourcing-made-simple-4a2625113224)
+Special thanks to [Philippe Creux](https://kickstarter.engineering/@pcreux) and [Kickstarter](https://kickstarter.engineering/event-sourcing-made-simple-4a2625113224) for sharing [their Event Sourcing example](https://github.com/pcreux/event-sourcing-rails-todo-app-demo).
+
+Thanks to [Martin Fowler](https://martinfowler.com/) for his [important writings](https://martinfowler.com/articles/201701-event-driven.html) on [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html).
+
+Thanks to [Arkency](https://arkency.com/) for their great work with [the RailsEventStore library](https://github.com/RailsEventStore/rails_event_store).
+
+And finally, thanks to fellow Dev.to user [Alfredo Motta](https://dev.to/mottalrd) for [sharing about this years ago](https://dev.to/mottalrd/an-introduction-to-event-sourcing-for-rubyists-41e5) (and keeping it up for me to catch up on!).
