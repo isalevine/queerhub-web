@@ -35,7 +35,8 @@ Some links to code examples:
 * Examples of **separation of concerns**:
   * `Events` are only concerned with [applying changes to a particular model's instance](https://github.com/isalevine/queerhub-web/blob/master/app/models/events/user/created.rb)
   * `Commands` are only concerned about [validating data, and creating a new Event with it](https://github.com/isalevine/queerhub-web/blob/master/app/models/commands/user/create.rb#L26)
-  * `Reactors` only have to know [which Event classes they are listening for](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/models/reactors/console_notification/user_created.rb#L16), and dispatching is [handled by a Sidekiq worker](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/workers/event_dispatcher_worker.rb#L9) along with [the EventReactorDictionary Singleton](https://github.com/isalevine/queerhub-web/blob/master/app/services/event_reactor_dictionary.rb)
+  * `Reactors` only have to know [which Event classes they are listening for](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/models/reactors/console_notification/user_created.rb#L16)
+  * Dispatching Events to their Reactors is [handled by a Sidekiq worker](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/workers/event_dispatcher_worker.rb#L9) along with [the EventReactorDictionary Singleton](https://github.com/isalevine/queerhub-web/blob/master/app/services/event_reactor_dictionary.rb)
 
 
 ### 2. I implemented test coverage for the Event Sourcing system with RSpec and DatabaseCleaner!
