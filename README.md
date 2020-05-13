@@ -22,9 +22,9 @@ In particular, my goal is to implement the following from scratch:
 ## Highlights
 
 ### 1. I built an [Event Sourcing system](https://dev.to/isalevine/building-an-event-sourcing-system-in-rails-part-1-what-is-event-sourcing-46db) to track all changes to data, and serve as a publish-subscribe system!
-All data changes are wrapped in a `Command` class, which validates data and creates an `Event`. 
+All data changes are wrapped in a [`Command`](https://github.com/isalevine/queerhub-web/blob/master/app/models/mixins/command.rb) class, which validates data and creates an [`Event`](https://github.com/isalevine/queerhub-web/blob/master/app/models/events/base_event.rb). 
 
-Each `Event` is then dispatched to a Sidekiq queue, which passes the event to any `Reactor` class listening for its target `event_type`.
+Each `Event` is then dispatched to a Sidekiq queue, which passes the event to any [`Reactor`](https://github.com/isalevine/queerhub-web/blob/master/app/models/reactors/base_reactor.rb) class listening for its target `event_type`.
 
 Some links to code examples:
 * `EventReactorDictionary` Singleton that [loads all classes in the `Reactor` namespace](https://github.com/isalevine/queerhub-web/blob/0fa5be523b7a7d1983ec7ff2df307dc838272d8d/app/services/event_reactor_dictionary.rb#L28), and builds a hash using those classes as keys pointing to `Events` which they react to. This is the core of the publish-subscribe system!
