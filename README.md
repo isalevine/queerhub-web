@@ -46,7 +46,7 @@ This leaves leftover data in the testing database, which interferes with process
 RSpec needs a tool like DatabaseCleaner [to ensure that a clean database is used in each test.](https://github.com/isalevine/queerhub-web/blob/master/spec/support/database_cleaner.rb)
 
 * [Tests for `Commands::User::Create`](https://github.com/isalevine/queerhub-web/blob/master/spec/models/commands/users/create_spec.rb)
-* [Tests for `Commands::USer::Destroy`](https://github.com/isalevine/queerhub-web/blob/master/spec/models/commands/users/destroy_spec.rb)
+* [Tests for `Commands::User::Destroy`](https://github.com/isalevine/queerhub-web/blob/master/spec/models/commands/users/destroy_spec.rb)
 
 ### 3. This project is the basis for [my step-by-step tutorial blog for creating an Event Sourcing system from scratch in Rails!](https://dev.to/isalevine/building-an-event-sourcing-pattern-in-rails-from-scratch-355h)
 
