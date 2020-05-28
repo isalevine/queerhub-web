@@ -17,9 +17,10 @@ class EventReactorDictionary
     reactors = load_reactors
     reactors.each do |reactor|
       event_type = reactor.target_event_type.to_s
-      dictionary[event_type] = [] if dictionary[event_type].nil?
+      dictionary[event_type] ||= []
       dictionary[event_type] << reactor unless dictionary[event_type].include?(reactor.class)
     end
+    byebug
     dictionary
   end
   
