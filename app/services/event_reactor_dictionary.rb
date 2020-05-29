@@ -1,6 +1,5 @@
 # TODO: Consider moving this class to lib?
 class EventReactorDictionary
-
   attr_accessor :dictionary
 
   # per this article, functionally a Singleton (https://stackoverflow.com/a/10733789)
@@ -41,5 +40,4 @@ class EventReactorDictionary
   def call(event_type)
     self.dictionary[event_type]
   end
-
 end
