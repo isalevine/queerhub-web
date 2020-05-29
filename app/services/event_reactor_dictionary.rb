@@ -20,7 +20,6 @@ class EventReactorDictionary
       dictionary[event_type] ||= []
       dictionary[event_type] << reactor unless dictionary[event_type].include?(reactor.class)
     end
-    byebug
     dictionary
   end
   
